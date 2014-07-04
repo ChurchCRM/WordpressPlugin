@@ -1,0 +1,4 @@
+ChurchInfoWordpress
+===================
+
+ChurchInfo Wordpress plugin
