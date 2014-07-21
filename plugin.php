@@ -29,9 +29,18 @@ Online: http://www.gnu.org/licenses/gpl.txt
 define('CHURCH_INFO_FILE', __FILE__);
 define('CHURCH_INFO_PATH', plugin_dir_path(__FILE__));
 
+if (!defined('CHURCH_INFO_VERSION_KEY'))
+    define('CHURCH_INFO_VERSION_KEY', 'CHURCH_INFO_VERSION');
+
+if (!defined('CHURCH_INFO_VERSION_NUM'))
+    define('CHURCH_INFO_VERSION_NUM', '1.0.0');
+
+add_option(MYPLUGIN_VERSION_KEY, MYPLUGIN_VERSION_NUM);
+
 require_once('includes/options.php');
 require_once('includes/angularjs.php');
 require_once('includes/shortcodes.php');
 require_once('includes/churchinfo.php');
+require_once('includes/churchinfodb.php');
 
 ?>
