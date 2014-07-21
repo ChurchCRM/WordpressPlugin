@@ -8,8 +8,8 @@ function churchinfo_wp() {
 
 
 // add the admin settings and such
-add_action('admin_init', 'plugin_admin_init');
-function plugin_admin_init(){
+add_action('admin_init', 'churchinfo_admin_init');
+function churchinfo_admin_init(){
     register_setting( 'churchinfo_plugin_options', 'churchinfo_plugin_settings');
 
     add_settings_section('churchinfo_plugin_db', 'DB Settings', 'ci_db_callback', 'plugin');
@@ -80,8 +80,12 @@ function ci_data_callback() {
 function ci_setting_sourceDataOn_callback() {
     $settings = (array) get_option( 'churchinfo_plugin_settings' );
     $field = "ci_source_data_on";
-    $value = esc_attr( $settings[$field]);
-    echo "<input type='checkbox' name='churchinfo_plugin_settings[$field]' value='$value' />";
+    $value = "";
+    if (esc_attr( $settings[$field]) == "on") {
+        $value = "checked";
+    };
+
+    echo "<input type='checkbox' name='churchinfo_plugin_settings[$field]' value='on' $value />";
 }
 function ci_setting_sourceDataName_callback() {
     $settings = (array) get_option( 'churchinfo_plugin_settings' );

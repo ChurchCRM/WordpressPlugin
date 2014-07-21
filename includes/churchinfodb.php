@@ -18,16 +18,16 @@
 class ChurchInfoDatabase
 {
     private $db;
+    private $settings;
 
     public function __construct() {
         // Connect To Database
-        $dbSettings = getSettings();
-
+        $this->settings = get_option( 'churchinfo_plugin_settings' );
         try {
-            $this->db = new wpdb($dbSettings[ci_db_user],
-                $dbSettings[ci_db_pass],
-                $dbSettings[ci_db_name],
-                $dbSettings[ci_db_host]);
+            $this->db = new wpdb($this->settings[ci_db_user],
+                $this->settings[ci_db_pass],
+                $this->settings[ci_db_name],
+                $this->settings[ci_db_host]);
             $this->db->show_errors(); // Debug
 
         } catch (Exception $e) {	// Database Error
@@ -35,24 +35,24 @@ class ChurchInfoDatabase
         }
     }
 
-    private function getSettings() {
-        return get_option( 'churchinfo_plugin_settings' );
-    }
-
     private function isDataSourceEnabled() {
         $value = false;
-        if (getSettings()[ci_source_data_on] == "on") {
+        if ($this->settings[ci_source_data_on] == "on") {
             $value = true;
         }
         return $value;
     }
 
+    public function countFamilies() {
+        return $this->$familySourceColName = $this->db->get_var("   SELECT count(*) FROM churchinfo.family_fam;");
+    }
+
     private function getDataSourceFamilyFieldName() {
-        return getSettings()[ci_source_data_name];
+        return $this->settings[ci_source_data_name];
     }
 
     private function getDataSrouceFamilyValue() {
-        return getSettings()[ci_source_data_value];
+        return $this->settings[ci_source_data_value];
     }
 
     // get the name of the column to store the source value
